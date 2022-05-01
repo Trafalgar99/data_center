@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.db import connection
-import mysqlx
+
 
 # Create your views here.
 
