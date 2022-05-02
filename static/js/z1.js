@@ -255,38 +255,56 @@ let option4 = {
 };
 mychart4.setOption(option4);
 
+function RandomNum(Min, Max) {
+  let Range = Max - Min;
+  let Rand = Math.random();
+  let num = Min + Math.floor(Rand * Range); //舍去
+  return num;
+}
 let mychart5 = echarts.init(document.querySelector(".x5"));
+let datav5 = [22.52, 20, 24.43, 24.28, 22.18, 25.52, 21, 24.43, 24.28, 24.18];
+let datax5 = [];
+for (let i = 0; i < 10; i++) {
+  datax5.push(i);
+}
 let option5 = {
+  tooltip: {
+    // 通过坐标轴来触发
+    trigger: "axis",
+  },
   grid: {
     top: "5%",
     left: "3%",
     right: "4%",
     bottom: "3%",
     show: true,
-    borderColor: "#012f4a",
+    borderColor: "rgba(255,255,255,0.3)",
     containLabel: true,
   },
   xAxis: {
     type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    boundaryGap: false,
+    data: datax5,
     axisLabel: {
       color: "rgba(255,255,255,.7)",
     },
   },
   yAxis: {
+    min: 15,
+    max: 30,
     type: "value",
     axisLabel: {
       color: "rgba(255,255,255,.7)",
     },
     splitLine: {
       lineStyle: {
-        color: "#012f4a",
+        color: "rgba(255,255,255,0.3)",
       },
     },
   },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
+      data: datav5,
       type: "line",
       itemStyle: {
         normal: {
@@ -301,3 +319,480 @@ let option5 = {
   ],
 };
 mychart5.setOption(option5);
+
+setInterval(function () {
+  datax5.shift();
+  let x = datax5[datax5.length - 1] + 1;
+  datax5.push(x);
+  datav5.shift();
+  let y = RandomNum(20.0, 26.0);
+  datav5.push(y);
+
+  if (x >= 30) {
+    datax5 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    datav5 = [22.52, 20, 24.43, 24.28, 22.18, 25.52, 21, 24.43, 24.28, 24.18];
+    option5.xAxis.data = datax5;
+    option5.series[0].data = datav5;
+    mychart5.setOption(option5);
+  }
+  mychart5.setOption({
+    xAxis: {
+      data: datax5,
+    },
+    series: [
+      {
+        data: datav5,
+      },
+    ],
+  });
+}, 1000);
+
+let mychart6 = echarts.init(document.querySelector(".x6"));
+let data6 = {
+  data_z2_1: [
+    273, 217.7, 232.85, 258.5, 238.17, 219.91, 251.04, 222.46, 250.58, 196.91,
+    233.02, 237.8,
+  ],
+  data_z2_2: [
+    234, 200.85, 220.96, 197.5, 180.84, 223.46, 234.62, 250.76, 245.4, 210.4,
+    226.06, 241.77,
+  ],
+  data_z2_3: [309, 249, 227, 245, 245, 251, 254, 211, 212, 236, 270, 232],
+};
+let option6 = {
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      lineStyle: {
+        color: "#dddc6b",
+      },
+    },
+  },
+  legend: {
+    top: "0%",
+    textStyle: {
+      color: "rgba(255,255,255,.5)",
+      fontSize: "12",
+    },
+  },
+  grid: {
+    left: "10",
+    top: "30",
+    right: "10",
+    bottom: "10",
+    containLabel: true,
+  },
+
+  xAxis: [
+    {
+      type: "category",
+      boundaryGap: false,
+      axisLabel: {
+        textStyle: {
+          color: "rgba(255,255,255,.6)",
+          fontSize: 12,
+        },
+      },
+      axisLine: {
+        lineStyle: {
+          color: "rgba(255,255,255,.2)",
+        },
+      },
+
+      data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "11", "12"],
+    },
+    {
+      axisPointer: { show: false },
+      axisLine: { show: false },
+      position: "bottom",
+      offset: 20,
+    },
+  ],
+
+  yAxis: [
+    {
+      type: "value",
+      axisTick: { show: false },
+      axisLine: {
+        lineStyle: {
+          color: "rgba(255,255,255,.1)",
+        },
+      },
+      axisLabel: {
+        textStyle: {
+          color: "rgba(255,255,255,.6)",
+          fontSize: 12,
+        },
+      },
+
+      splitLine: {
+        lineStyle: {
+          color: "rgba(255,255,255,.1)",
+        },
+      },
+    },
+  ],
+  series: [
+    {
+      name: "2021",
+      type: "line",
+      smooth: true,
+      symbol: "circle",
+      symbolSize: 5,
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          color: "#0184d5",
+          width: 2,
+        },
+      },
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(
+            0,
+            0,
+            0,
+            1,
+            [
+              {
+                offset: 0,
+                color: "rgba(1, 132, 213, 0.4)",
+              },
+              {
+                offset: 0.8,
+                color: "rgba(1, 132, 213, 0.1)",
+              },
+            ],
+            false
+          ),
+          shadowColor: "rgba(0, 0, 0, 0.1)",
+        },
+      },
+      itemStyle: {
+        normal: {
+          color: "#0184d5",
+          borderColor: "rgba(221, 220, 107, .1)",
+          borderWidth: 12,
+        },
+      },
+      data: data6.data_z2_1,
+    },
+    {
+      name: "2020",
+      type: "line",
+      smooth: true,
+      symbol: "circle",
+      symbolSize: 5,
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          color: "#00d887",
+          width: 2,
+        },
+      },
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(
+            0,
+            0,
+            0,
+            1,
+            [
+              {
+                offset: 0,
+                color: "rgba(0, 216, 135, 0.4)",
+              },
+              {
+                offset: 0.8,
+                color: "rgba(0, 216, 135, 0.1)",
+              },
+            ],
+            false
+          ),
+          shadowColor: "rgba(0, 0, 0, 0.1)",
+        },
+      },
+      itemStyle: {
+        normal: {
+          color: "#00d887",
+          borderColor: "rgba(221, 220, 107, .1)",
+          borderWidth: 12,
+        },
+      },
+      data: data6.data_z2_2,
+    },
+    {
+      name: "2019",
+      type: "line",
+      smooth: true,
+      symbol: "circle",
+      symbolSize: 5,
+      showSymbol: false,
+      lineStyle: {
+        normal: {
+          color: "#a55eea",
+          width: 2,
+        },
+      },
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(
+            0,
+            0,
+            0,
+            1,
+            [
+              {
+                offset: 0,
+                color: "rgba(1, 132, 213, 0.4)",
+              },
+              {
+                offset: 0.8,
+                color: "rgba(1, 132, 213, 0.1)",
+              },
+            ],
+            false
+          ),
+          shadowColor: "rgba(0, 0, 0, 0.1)",
+        },
+      },
+      itemStyle: {
+        normal: {
+          color: "#a55eea",
+          borderColor: "rgba(165, 94, 234,.1)",
+          borderWidth: 12,
+        },
+      },
+      data: data6.data_z2_3,
+    },
+  ],
+};
+mychart6.setOption(option6);
+
+// -------------------------------------------------------
+let mychart7 = echarts.init(document.querySelector(".x7"));
+// prettier-ignore
+let dataAxis = []
+for (let i = 0; i < 24; i++) {
+  dataAxis.push(i);
+}
+// prettier-ignore
+let data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220,90, 149, 210, 122];
+let yMax = 500;
+let dataShadow = [];
+for (let i = 0; i < data.length; i++) {
+  dataShadow.push(yMax);
+}
+let option7 = {
+  grid: {
+    left: "10",
+    top: "30",
+    right: "10",
+    bottom: "10",
+    containLabel: true,
+  },
+
+  xAxis: {
+    data: dataAxis,
+    axisLabel: {
+      inside: true,
+      color: "#fff",
+    },
+    axisTick: {
+      show: false,
+    },
+    axisLine: {
+      show: false,
+    },
+    z: 10,
+  },
+  yAxis: {
+    axisLine: {
+      show: false,
+    },
+    axisTick: {
+      show: false,
+    },
+    axisLabel: {
+      color: "#999",
+    },
+  },
+  dataZoom: [
+    {
+      type: "inside",
+    },
+  ],
+  series: [
+    {
+      type: "bar",
+      showBackground: true,
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          { offset: 0, color: "#00a8ff" },
+          { offset: 0.5, color: "#0097e6" },
+          { offset: 1, color: "#273c75" },
+        ]),
+      },
+      emphasis: {
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: "#2378f7" },
+            { offset: 0.7, color: "#2378f7" },
+            { offset: 1, color: "#83bff6" },
+          ]),
+        },
+      },
+      data: data,
+    },
+  ],
+};
+// Enable data zoom when user click bar.
+const zoomSize = 6;
+mychart7.on("click", function (params) {
+  console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+  mychart7.dispatchAction({
+    type: "dataZoom",
+    startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+    endValue:
+      dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)],
+  });
+});
+mychart7.setOption(option7);
+
+let mychart8 = echarts.init(document.querySelector(".x8"));
+
+let option8 = {
+  grid: {
+    left: "10",
+    top: "30",
+    right: "10",
+    bottom: "10",
+    containLabel: true,
+  },
+  series: {
+    type: "treemap",
+    itemStyle: {
+      color: "rgba(109, 40, 40, 1)",
+      borderWidth: 2,
+      borderColor: "rgba(255, 255, 0, 0)",
+    },
+    data: [
+      {
+        name: "2022",
+        value: 800,
+        // itemStyle: {
+        //   color: "rgba(255,0, 0, 0.5)",
+        //   borderWidth: 10,
+        //   borderColor: "rgba(0,255,0,1)",
+        // },
+      },
+      {
+        name: "2021",
+        value: 1000,
+      },
+      {
+        name: "2020",
+        value: 100,
+      },
+      {
+        name: "2019",
+        value: 700,
+      },
+      {
+        name: "2018",
+        value: 200,
+      },
+    ],
+  },
+  type: "basicTreemap",
+};
+
+mychart8.setOption(option8);
+
+let mychart9 = echarts.init(document.querySelector(".x9"));
+let data9 = [
+  { 2022: 14 },
+  { 2021: 13 },
+  { 2020: 15 },
+  { 2019: 11 },
+  { 2018: 17 },
+];
+
+let option9 = {
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      // 坐标轴指示器，坐标轴触发有效
+      type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+    },
+  },
+  grid: {
+    left: "10",
+    top: "20",
+    right: "10",
+    bottom: "10",
+    containLabel: true,
+  },
+  xAxis: {
+    type: "value",
+    boundaryGap: false,
+    max: 20, // Math.ceil(max / 4) * 5 || 10
+    axisLine: { show: true, lineStyle: { color: "#ccc" } },
+    axisTick: { show: false },
+    axisLabel: { color: "#999" },
+    splitLine: {
+      lineStyle: { color: ["#CEEDFF"], type: [5, 8], dashOffset: 3 },
+    },
+  },
+  yAxis: {
+    type: "category",
+    data: ["2022", "2021", "2020", "2019", "2018"],
+    axisLine: { show: true, lineStyle: { color: "#ccc" } },
+    axisTick: { length: 3 },
+    axisLabel: { fontSize: 14, color: "#666", margin: 16, padding: 0 },
+    inverse: true,
+  },
+  series: [
+    {
+      name: "数量",
+      type: "bar",
+      showBackground: true,
+      backgroundStyle: {
+        color: "rgba(82, 168, 255, 0.1)",
+        borderRadius: [0, 8, 8, 0],
+      },
+      itemStyle: {
+        color: "#52A8FF",
+        normal: {
+          borderRadius: [0, 8, 8, 0],
+          color: function (params) {
+            // 定义一个颜色集合
+            let colorList = [
+              "#52A8FF",
+              "#00B389",
+              "#FFA940",
+              "#FF5A57",
+              "#29EFC4",
+              "#F8AEA4",
+              "#FFC53D",
+              "#009982",
+              "#C099FC",
+              "#F5855F",
+            ];
+            // 对每个bar显示一种颜色
+            return colorList[params.dataIndex];
+          },
+        },
+      },
+      barMaxWidth: 16,
+      label: {
+        show: true,
+        position: "insideRight",
+        offset: [-5, 2],
+        color: "#fff",
+      },
+      data: [15, 12, 21, 11, 11, 11, 11, 7, 6, 3],
+    },
+  ],
+};
+mychart9.setOption(option9);
