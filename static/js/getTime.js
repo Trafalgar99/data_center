@@ -1,27 +1,18 @@
-var t = null;
-t = setTimeout(time, 1000); //開始运行
-function time() {
-  clearTimeout(t); //清除定时器
-  dt = new Date();
-  var y = dt.getFullYear();
-  var mt = dt.getMonth() + 1;
-  var day = dt.getDate();
-  var h = dt.getHours(); //获取时
-  var m = dt.getMinutes(); //获取分
-  var s = dt.getSeconds(); //获取秒
-  document.querySelector(".showTime").innerHTML =
+setInterval(function () {
+  let dt = new Date();
+  let show_time =
     "当前时间：" +
-    y +
+    dt.getFullYear() +
     "年" +
-    mt +
+    (dt.getMonth() + 1) +
     "月" +
-    day +
-    "-" +
-    h +
+    dt.getDate() +
+    "日" +
+    dt.getHours() +
     "时" +
-    m +
+    dt.getMinutes() +
     "分" +
-    s +
+    dt.getSeconds() +
     "秒";
-  t = setTimeout(time, 1000); //设定定时器，循环运行
-}
+  document.querySelector(".showTime").innerHTML = show_time;
+}, 1000);

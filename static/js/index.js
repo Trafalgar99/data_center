@@ -683,7 +683,7 @@ let option_map = {
         normal: {
           // 地图省份的背景颜色
           areaColor: "rgba(20, 41, 87,0.6)",
-          borderColor: "#195BB9",
+          borderColor:  "#195BB9",
           borderWidth: 1,
         },
         emphasis: {
