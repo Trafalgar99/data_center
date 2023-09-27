@@ -738,5 +738,4 @@ myChart_map.on("click", function (params) {
 window.addEventListener("resize", function () {
   myChart_map.resize();
 });
-//----------------------------------------------------------------------------------------
-// wkd12362001W
+
